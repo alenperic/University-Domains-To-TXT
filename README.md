@@ -1,131 +1,77 @@
-# University Domains and Names Data List & API
+# University Domains and Names Data List & API with Domain Extraction Script
 
-Do you need a list of universities and their domain names? You found it!
+This repository is a fork of the original University Domains and Names Data List & API, extended to include a Python script for extracting university domain data into a `.txt` file. It utilizes the comprehensive JSON dataset of university domains, names, and countries from around the world, which may be used as an allowlist or blocklist, depending on the specific consumer needs.
 
-This package includes a JSON file that contains domains, names and countries of most of the universities of the world.
+## Features
 
-Example usecases: 
-- You can create a validation script that checks the email domain.
-- You can automatically generate a user's country and university by looking at their emails.
+- A JSON file containing a detailed list of universities and their associated domain names, based on [University Domains and Names Data List & API by Hipo](https://github.com/Hipo/university-domains-list).
+- A Python script that allows for the extraction of these domains to a `.txt` file, which can be used for various purposes such as domain validation or data analysis.
+- A finished extract from November 2023, if running the Python script is not an option.
 
-You can use this data source in three ways:
+## Example Use Cases:
 
-- Use the JSON file as your data source and do whatever you like with your favourite programming language.
-- Use free hosted-API.
-- Use the tiny Python app to serve a fast API that you can query data.
+- Validate email domains efficiently by cross-referencing with the university domain list.
+- Derive a user's university and country based on their email domain automatically.
 
+### Using the Python Script
 
-### 1 - Using the Data Source
-
-The whole data source is located in the `world_universities_and_domains.json` file. It is just a list of dictionaries in the following format:
-
-    [
-    	...
-    	{
-    	    "alpha_two_code": "TR",
-    	    "country": "Turkey",
-    	    "state-province": null,
-    	    "domains": [
-    	        "sabanciuniv.edu",
-    	        "sabanciuniv.edu.tr"
-    	    ],
-    	    "name": "Sabanci University",
-    	    "web_pages": [
-    	        "http://www.sabanciuniv.edu/",
-    	        "http://www.sabanciuniv.edu.tr/"
-    	    ],
-    	},
-    	...
-    ]
-
-If you want a smaller final payload and only need a subset of countries, run
+To extract university domains to a `.txt` file, use the provided Python script `extract_domains_to_txt.py` with the following usage:
 
 ```bash
-filter.py $country1 [Optional: $country2]
+python extract_domains_to_txt.py [-L local_file_path]
 ```
 
-from the root directory to return
+If the `-L` option is not specified, the script will by default download the latest data from the Hipo GitHub repository.
 
+### Using the Original JSON Data
+
+The original dataset is located in the `world_universities_and_domains.json` file and is structured as follows:
+
+```json
+[
+    ...
+    {
+        "alpha_two_code": "TR",
+        "country": "Turkey",
+        "state-province": null,
+        "domains": [
+            "sabanciuniv.edu",
+            "sabanciuniv.edu.tr"
+        ],
+        "name": "Sabanci University",
+        "web_pages": [
+            "http://www.sabanciuniv.edu/",
+            "http://www.sabanciuniv.edu.tr/"
+        ],
+    },
+    ...
+]
 ```
-filtered_world_universities_and_domains.json
-```
 
-NOTE: Some universities use a format like `[user]@[department].[domain]`, but this list only contains the `[domain]` portion.
-For example, an email address might be `[student]@cs.usc.edu`, and this list will contain 'usc.edu', the domain for the
-University of Southern California. Take this into consideration if using this list for email address validation.
+### Original Hosted API
 
-### 2 - Using The Hosted API
+For small projects or exploratory purposes, you can use the free hosted API sponsored by [Hipo](http://www.hipolabs.com). For larger projects, consider hosting the data on your own server.
 
-This is the easiest method if you're making a small project or just want to discover the data without any hassle.
-It is sponsored by [Hipo](http://www.hipolabs.com) and free. If you have a big project, please host it on your own server.
+Example API requests:
 
-Some example searches:
+- `http://universities.hipolabs.com`
+- `http://universities.hipolabs.com/search?name=middle`
+- `http://universities.hipolabs.com/search?name=middle&country=turkey`
 
-- http://universities.hipolabs.com
-- http://universities.hipolabs.com/search?name=middle
-- http://universities.hipolabs.com/search?name=middle&country=turkey
+## Contribution
 
-The hosted API uses [university-domains-list-api](https://github.com/Hipo/university-domains-list-api) package.
+Contributions to this project are welcome. If you find any data inaccuracies or have updates, please open a pull request or create an issue.
 
-### 3 - Using the built-in API on your server
+## Contributors
 
-You can access the python API via [university-domains-list-api](https://github.com/Hipo/university-domains-list-api)
+This project exists thanks to all the people who contribute. A list of original contributors can be found [here](https://github.com/Hipo/university-domains-list/graphs/contributors).
 
-# Contribution
+## License
 
-Please contribute to this list! We need your support to keep this list up-to-date.
-Do not hesitate to fix any wrong data. It is extremely easy. Just open a PR, or create an issue.
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-# Contributors
+## Acknowledgments
 
-- Yiğit Güler
-- Tuna Vargı
-- Patrick Michelberger
-- Rasim Demirbay
-- Ryan White
-- Bilal Arslan
-- anwilli5
-- Thomas Bauer
-- Emin Mastizada
-- Jai
-- Jimi Ford
-- Lars Schwegmann
-- Sedat Karancı
-- Charles Bedrosian
-- Harrison Lo
-- mattdfloyd
-- Ender Ahmet Yurt
-- Enis Behiç Tuysuz
-- Syed Zakawat
-- Daksh Shah
-- Maizer Gomes
-- Denys Vitali
-- Ary Wibowo
-- Matt Floyd
-- Joris Boquet
-- Konstantin Ladutenko
-- Romain Odeval
-- remediate
-- Errorific
-- summerplaybook
-- hamedty
-- Sedat
-- Sotirios Roussis
-- majilesh
-- Itay Grudev
-- luungoc2005
-- Ajithkumar Sekar
-- Christopher Chen
-- Dimitris Karakostas
-- Chun Fei Lung
-- Mamat Rahmat
-- Wisnu Adi Nurcahyo
-- jvanstraten
-- Ekin Dursun
-- Kevin Bohinski
-- Lachlan Marnham
-- Baptiste Pellarin
-- Kelian Baert
-- [more](https://github.com/Hipo/university-domains-list/graphs/contributors)
+Credit goes to the original creators and contributors of the [University Domains and Names Data List & API](https://github.com/Hipo/university-domains-list).
 
-### Created and maintained by [Hipo](http://www.hipolabs.com)
+### Created and maintained by Alen Peric
